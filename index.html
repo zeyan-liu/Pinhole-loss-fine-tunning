@@ -296,7 +296,7 @@
     const REPO_NAME = "Pinhole-loss-fine-tunning";
     const BRANCH = "main";
 
-    const SYSTEMS = ["asrbn-gst", "asrbn", "xvector"];
+    const SYSTEMS = [ "xvector","asrbn", "asrbn-gst"];
 
     const METHOD_ORDER = [
       "RS",
@@ -329,9 +329,9 @@
 
     function prettySystemName(name) {
       const map = {
-        "asrbn-gst": "ASRBN-GST",
+        "xvector": "xvector-based",
         "asrbn": "ASRBN",
-        "xvector": "x-vector"
+        "asrbn-gst": "ASRBN-GST"
       };
       return map[name] || name;
     }

@@ -20,6 +20,9 @@ The audio samples are organized by anonymization system, anonymization method, a
 
 ---
 
+## Demo Page
+# You can access the audio samples at  [https://voiceprivacy.github.io/IDMap/].
+
 ## xvector-based
 
 | File name | a2o w/o | a2o w/ | RS w/o | RS w/ | GAN w/o | GAN w/ | IDMap-Diff w/o | IDMap-Diff w/ |

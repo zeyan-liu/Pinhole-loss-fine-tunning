@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Reducing Speaker Residual by Considering Pinhole Effect in Voice Anonymization</title>
 
   <style>
     :root {
-      --bg: #f7f7f4;
+      --bg: #f7f8fa;
       --card: #ffffff;
       --text: #1f2933;
       --muted: #6b7280;
-      --border: #e5e7eb;
+      --border: #d8dee6;
       --accent: #1f4e79;
-      --accent-light: #edf4fb;
-      --shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      --accent-light: #eef5fb;
+      --shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
     }
 
     * {
@@ -30,7 +31,7 @@
     }
 
     .page {
-      max-width: 1180px;
+      max-width: 1280px;
       margin: 0 auto;
       padding: 48px 24px 72px;
     }
@@ -84,24 +85,16 @@
       font-size: 16px;
     }
 
-    .repo-link {
+    .note {
       margin-top: 18px;
-      font-size: 16px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 15px;
+      color: var(--muted);
       text-align: center;
     }
 
-    .repo-link a {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .repo-link a:hover {
-      text-decoration: underline;
-    }
-
     .toc {
-      margin: 36px auto 22px;
+      margin: 36px auto 28px;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
@@ -110,82 +103,97 @@
 
     .toc a {
       display: inline-block;
-      padding: 8px 14px;
+      padding: 8px 16px;
       border-radius: 999px;
       background: var(--accent-light);
       color: var(--accent);
       text-decoration: none;
       font-size: 15px;
       font-family: Arial, Helvetica, sans-serif;
-      font-weight: 600;
+      font-weight: 700;
+    }
+
+    .toc a:hover {
+      text-decoration: underline;
     }
 
     .system-section {
-      margin-top: 46px;
+      margin-top: 48px;
+      padding-top: 8px;
     }
 
     .system-title {
       font-family: Arial, Helvetica, sans-serif;
-      font-size: 27px;
+      font-size: 30px;
       color: #111827;
       border-bottom: 3px solid var(--accent);
       padding-bottom: 8px;
       margin-bottom: 22px;
     }
 
-    .method-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-      gap: 22px;
-    }
-
-    .method-card {
+    .table-wrap {
+      overflow-x: auto;
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 20px;
+      border-radius: 16px;
       box-shadow: var(--shadow);
     }
 
-    .method-card h3 {
-      margin: 0 0 14px;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1180px;
       font-family: Arial, Helvetica, sans-serif;
-      font-size: 20px;
-      color: var(--accent);
     }
 
-    .audio-item {
-      padding: 14px 0;
-      border-top: 1px solid var(--border);
+    th,
+    td {
+      border: 1px solid var(--border);
+      padding: 12px 10px;
+      text-align: center;
+      vertical-align: middle;
     }
 
-    .audio-item:first-of-type {
-      border-top: none;
-      padding-top: 0;
+    th {
+      background: #f3f6f9;
+      color: #111827;
+      font-size: 15px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    td {
+      background: #ffffff;
+    }
+
+    tr:nth-child(even) td {
+      background: #f8fafc;
     }
 
     .file-name {
       font-family: Consolas, Monaco, "Courier New", monospace;
       font-size: 14px;
-      color: #374151;
-      margin-bottom: 8px;
-      word-break: break-all;
+      color: #111827;
+      white-space: nowrap;
+      text-align: left;
+      font-weight: 600;
     }
 
     audio {
-      width: 100%;
-      height: 38px;
+      width: 145px;
+      height: 34px;
     }
 
-    .loading,
-    .error {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 18px;
-      margin-top: 24px;
-      color: var(--muted);
+    .audio-link {
+      display: block;
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .audio-link:hover {
+      text-decoration: underline;
     }
 
     footer {
@@ -196,13 +204,13 @@
       font-size: 14px;
     }
 
-    @media (max-width: 680px) {
+    @media (max-width: 720px) {
       .page {
-        padding: 32px 16px 56px;
+        padding: 32px 14px 56px;
       }
 
       h1 {
-        font-size: 27px;
+        font-size: 26px;
       }
 
       .subtitle {
@@ -217,8 +225,12 @@
         font-size: 16px;
       }
 
-      .method-grid {
-        grid-template-columns: 1fr;
+      .system-title {
+        font-size: 26px;
+      }
+
+      audio {
+        width: 130px;
       }
     }
   </style>
@@ -245,20 +257,21 @@
           voice anonymization, residual speaker attributes, linkability, pinhole-based loss
         </div>
 
-        <div class="repo-link">
-          Audio samples:
-          <a href="https://github.com/zeyan-liu/Pinhole-loss-fine-tunning" target="_blank" rel="noopener">
-            GitHub Repository
-          </a>
+        <div class="note">
+          Audio samples are organized by system and method. 
+          <strong>w/o</strong> denotes the original method without pinhole-based fine-tuning, and 
+          <strong>w/</strong> denotes the corresponding method with pinhole-based fine-tuning.
         </div>
       </section>
     </header>
 
-    <nav class="toc" id="toc"></nav>
+    <nav class="toc">
+      <a href="#xvector">xvector-based</a>
+      <a href="#asrbn">ASRBN</a>
+      <a href="#asrbn-gst">ASRBN-GST</a>
+    </nav>
 
-    <div id="content">
-      <div class="loading">Loading audio samples...</div>
-    </div>
+    <div id="content"></div>
 
     <footer>
       Demo page for anonymous audio samples.
@@ -266,89 +279,65 @@
   </main>
 
   <script>
-    /*
-      This page is designed for GitHub Pages.
-
-      Expected repository structure:
-
-      root/
-        index.html
-        asrbn-gst/
-          GAN/
-            *.wav
-          GAN-w/
-            *.wav
-          ...
-        asrbn/
-          GAN/
-            *.wav
-          ...
-        xvector/
-          GAN/
-            *.wav
-          ...
-
-      The script first tries to load the real folder/file structure from GitHub API.
-      If GitHub API is unavailable, it falls back to the known structure below.
-    */
-
-    const REPO_OWNER = "zeyan-liu";
-    const REPO_NAME = "Pinhole-loss-fine-tunning";
-    const BRANCH = "main";
-
-    const SYSTEMS = [ "xvector","asrbn", "asrbn-gst"];
-
-    const METHOD_ORDER = [
-      "RS",
-      "RS-w",
-      "a2o",
-      "a2o-w",
-      "GAN",
-      "GAN-w",
-      "idmap",
-      "idmap-w"
-    ];
-
-    const FALLBACK_FILES = [
+    const FILES = [
       "1462-170142-0000.wav",
       "1462-170142-0001.wav",
       "84-121550-0000.wav",
       "84-121550-0001.wav"
     ];
 
-    const FALLBACK_STRUCTURE = SYSTEMS.map(system => ({
-      name: system,
-      methods: METHOD_ORDER.map(method => ({
-        name: method,
-        files: FALLBACK_FILES.map(file => ({
-          name: file,
-          path: `${system}/${method}/${file}`
-        }))
-      }))
-    }));
+    const SYSTEMS = [
+      {
+        id: "xvector",
+        title: "xvector-based",
+        folder: "xvector"
+      },
+      {
+        id: "asrbn",
+        title: "ASRBN",
+        folder: "asrbn"
+      },
+      {
+        id: "asrbn-gst",
+        title: "ASRBN-GST",
+        folder: "asrbn-gst"
+      }
+    ];
 
-    function prettySystemName(name) {
-      const map = {
-        "xvector": "xvector-based",
-        "asrbn": "ASRBN",
-        "asrbn-gst": "ASRBN-GST"
-      };
-      return map[name] || name;
-    }
-
-    function prettyMethodName(name) {
-      const map = {
-        "RS": "RS",
-        "RS-w": "RS + Pinhole Loss",
-        "a2o": "A2O",
-        "a2o-w": "A2O + Pinhole Loss",
-        "GAN": "GAN",
-        "GAN-w": "GAN + Pinhole Loss",
-        "idmap": "IDMap",
-        "idmap-w": "IDMap + Pinhole Loss"
-      };
-      return map[name] || name;
-    }
+    const METHODS = [
+      {
+        title: "a2o w/o",
+        folder: "a2o"
+      },
+      {
+        title: "a2o w/",
+        folder: "a2o-w"
+      },
+      {
+        title: "RS w/o",
+        folder: "RS"
+      },
+      {
+        title: "RS w/",
+        folder: "RS-w"
+      },
+      {
+        title: "GAN w/o",
+        folder: "GAN"
+      },
+      {
+        title: "GAN w/",
+        folder: "GAN-w"
+      },
+      {
+        title: "IDMap-Diff w/o",
+        folder: "idmap"
+      },
+      {
+        title: "IDMap-Diff w/",
+        folder: "idmap-w"
+      }
+    ];
 
     function encodePath(path) {
       return path
@@ -357,157 +346,90 @@
         .join("/");
     }
 
-    async function fetchGithubContents(path) {
-      const apiUrl =
-        `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${encodePath(path)}?ref=${BRANCH}`;
+    function createAudioCell(systemFolder, methodFolder, fileName) {
+      const td = document.createElement("td");
 
-      const response = await fetch(apiUrl);
+      const path = `${systemFolder}/${methodFolder}/${fileName}`;
+      const encodedPath = encodePath(path);
 
-      if (!response.ok) {
-        throw new Error(`GitHub API request failed: ${response.status} ${response.statusText}`);
-      }
+      const audio = document.createElement("audio");
+      audio.controls = true;
+      audio.preload = "none";
+      audio.src = encodedPath;
 
-      return response.json();
+      const link = document.createElement("a");
+      link.className = "audio-link";
+      link.href = encodedPath;
+      link.textContent = "open audio";
+      link.target = "_blank";
+      link.rel = "noopener";
+
+      td.appendChild(audio);
+      td.appendChild(link);
+
+      return td;
     }
 
-    async function loadStructureFromGithub() {
-      const structure = [];
+    function renderSystem(system) {
+      const section = document.createElement("section");
+      section.className = "system-section";
+      section.id = system.id;
 
-      for (const system of SYSTEMS) {
-        const systemItems = await fetchGithubContents(system);
+      const title = document.createElement("h2");
+      title.className = "system-title";
+      title.textContent = system.title;
+      section.appendChild(title);
 
-        const methodDirs = systemItems
-          .filter(item => item.type === "dir")
-          .map(item => item.name)
-          .sort((a, b) => METHOD_ORDER.indexOf(a) - METHOD_ORDER.indexOf(b));
+      const tableWrap = document.createElement("div");
+      tableWrap.className = "table-wrap";
 
-        const methods = [];
+      const table = document.createElement("table");
 
-        for (const method of methodDirs) {
-          const methodPath = `${system}/${method}`;
-          const methodItems = await fetchGithubContents(methodPath);
+      const thead = document.createElement("thead");
+      const headerRow = document.createElement("tr");
 
-          const files = methodItems
-            .filter(item => item.type === "file" && /\.(wav|mp3|flac|ogg|m4a)$/i.test(item.name))
-            .map(item => ({
-              name: item.name,
-              path: item.path
-            }))
-            .sort((a, b) => a.name.localeCompare(b.name));
+      const fileHeader = document.createElement("th");
+      fileHeader.textContent = "File name";
+      headerRow.appendChild(fileHeader);
 
-          methods.push({
-            name: method,
-            files
-          });
-        }
-
-        structure.push({
-          name: system,
-          methods
-        });
-      }
-
-      return structure;
-    }
-
-    function createTOC(structure) {
-      const toc = document.getElementById("toc");
-      toc.innerHTML = "";
-
-      structure.forEach(system => {
-        const a = document.createElement("a");
-        a.href = `#${system.name}`;
-        a.textContent = prettySystemName(system.name);
-        toc.appendChild(a);
+      METHODS.forEach(method => {
+        const th = document.createElement("th");
+        th.textContent = method.title;
+        headerRow.appendChild(th);
       });
+
+      thead.appendChild(headerRow);
+      table.appendChild(thead);
+
+      const tbody = document.createElement("tbody");
+
+      FILES.forEach(fileName => {
+        const row = document.createElement("tr");
+
+        const fileCell = document.createElement("td");
+        fileCell.className = "file-name";
+        fileCell.textContent = fileName;
+        row.appendChild(fileCell);
+
+        METHODS.forEach(method => {
+          row.appendChild(createAudioCell(system.folder, method.folder, fileName));
+        });
+
+        tbody.appendChild(row);
+      });
+
+      table.appendChild(tbody);
+      tableWrap.appendChild(table);
+      section.appendChild(tableWrap);
+
+      return section;
     }
 
-    function renderStructure(structure) {
+    function main() {
       const content = document.getElementById("content");
-      content.innerHTML = "";
-
-      createTOC(structure);
-
-      structure.forEach(system => {
-        const section = document.createElement("section");
-        section.className = "system-section";
-        section.id = system.name;
-
-        const title = document.createElement("h2");
-        title.className = "system-title";
-        title.textContent = prettySystemName(system.name);
-        section.appendChild(title);
-
-        const grid = document.createElement("div");
-        grid.className = "method-grid";
-
-        system.methods.forEach(method => {
-          const card = document.createElement("article");
-          card.className = "method-card";
-
-          const h3 = document.createElement("h3");
-          h3.textContent = prettyMethodName(method.name);
-          card.appendChild(h3);
-
-          if (!method.files.length) {
-            const empty = document.createElement("div");
-            empty.className = "error";
-            empty.textContent = "No audio files found in this method folder.";
-            card.appendChild(empty);
-          }
-
-          method.files.forEach(file => {
-            const item = document.createElement("div");
-            item.className = "audio-item";
-
-            const fileName = document.createElement("div");
-            fileName.className = "file-name";
-            fileName.textContent = file.name;
-
-            const audio = document.createElement("audio");
-            audio.controls = true;
-            audio.preload = "none";
-
-            /*
-              Use relative path for GitHub Pages.
-              Example:
-              index.html
-              asrbn/RS/1462-170142-0000.wav
-
-              Browser will load:
-              ./asrbn/RS/1462-170142-0000.wav
-            */
-            audio.src = encodePath(file.path);
-
-            item.appendChild(fileName);
-            item.appendChild(audio);
-            card.appendChild(item);
-          });
-
-          grid.appendChild(card);
-        });
-
-        section.appendChild(grid);
-        content.appendChild(section);
+      SYSTEMS.forEach(system => {
+        content.appendChild(renderSystem(system));
       });
-    }
-
-    async function main() {
-      try {
-        const structure = await loadStructureFromGithub();
-        renderStructure(structure);
-      } catch (error) {
-        console.warn("GitHub API loading failed. Using fallback structure.", error);
-        renderStructure(FALLBACK_STRUCTURE);
-
-        const content = document.getElementById("content");
-        const note = document.createElement("div");
-        note.className = "error";
-        note.innerHTML =
-          "Note: GitHub API loading failed, so the page is using a fallback file list. " +
-          "If some audio files do not appear, please update FALLBACK_FILES in index.html.";
-        content.prepend(note);
-      }
     }
 
     main();

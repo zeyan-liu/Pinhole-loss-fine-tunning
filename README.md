@@ -21,7 +21,7 @@ The audio samples are organized by anonymization system, anonymization method, a
 ---
 
 ## Demo Page
-# You can access the audio samples at  [https://voiceprivacy.github.io/IDMap/].
+# You can access the audio samples at  [https://zeyan-liu.github.io/Pinhole-loss-fine-tunning/].
 
 ## xvector-based
 
